@@ -69,8 +69,6 @@ jobs:
         file: ./${{ matrix.dockerfile }}/Dockerfile
         platforms: linux/amd64,linux/arm64,linux/arm/v7
         push: true
-        cache-from: type=registry,ref=ghcr.io/kitechsoftware/db-backup-cache:cache
-        cache-to: type=registry,ref=ghcr.io/kitechsoftware/db-backup-cache:cache,mode=max
         tags: |
           ${{ vars.IMAGE }}:${{ matrix.tag }}
 
