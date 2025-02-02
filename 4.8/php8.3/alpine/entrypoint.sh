@@ -7,11 +7,16 @@ if [ "$1" = "auth-proxy" ]; then
         exit 1
     fi
 
+    echo "Starting auth-proxy...\n"
+    echo "Adminer is running on http://localhost:${ADMIRER_PORT}"
+    echo "Auth-Proxy is running on http://localhost:${PROXY_PORT}"
+    
     # Start PHP server for Adminer in the background
-    php -S [::]:3000 -t /var/www/html &
-
+    php -S [::]:${ADMIRER_PORT} -t /var/www/html &
     # Start the authentication proxy
     auth-proxy
+    
+    
 else
     # Execute any command provided
     exec "$@"

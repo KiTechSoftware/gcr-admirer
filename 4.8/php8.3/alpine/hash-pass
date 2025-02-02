@@ -1,5 +1,6 @@
 #!/bin/sh
 
 # This script generates a bcrypt hash from a password
-php /var/www/html/generate_bcrypt_hash.php
+# php /var/www/html/generate_bcrypt_hash.php
+auth-proxy -g
 

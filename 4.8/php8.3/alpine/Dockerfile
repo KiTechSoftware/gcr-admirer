@@ -48,7 +48,7 @@ COPY --from=builder /app/auth-proxy /usr/bin/auth-proxy
 
 # Copy entrypoint script and index.php
 COPY entrypoint.sh hash-pass /usr/bin/
-COPY index.php generate_bcrypt_hash.php ./
+COPY index.php ./
 
 # Make scripts executable
 RUN chmod +x /usr/bin/auth-proxy /usr/bin/hash-pass /usr/bin/entrypoint.sh
@@ -57,8 +57,10 @@ RUN chmod +x /usr/bin/auth-proxy /usr/bin/hash-pass /usr/bin/entrypoint.sh
 EXPOSE 80 3000
 
 # Set environment variables
+ENV ADMIRER_PORT=3000
+ENV PROXY_PORT=80
 ENV ADMIN_USERNAME=admin
-ENV ADMIN_PASSWORD_HASH='$2y$10$OwWQ3.cAZleLvfSzl8fw2.O0pjee8T9fkrLPr/K1z71BV7e1pK.Ye'
+ENV ADMIN_PASSWORD_HASH='$2a$10$3HW9I1Jgby.ah0ZrI0XmR.IhaTnX85KBUzN0hh7UFhk20u1OW51YC'
 ENV ADMIRER_VERSION=4.8.1
 ENV PHP_VERSION=8.3
 
