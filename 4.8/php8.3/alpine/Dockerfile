@@ -18,30 +18,17 @@ FROM ghcr.io/kitechsoftware/php:8.3-cli-alpine
 WORKDIR /var/www/html
 
 # Install necessary packages
-# RUN apk add --no-cache \
-#     ca-certificates \
-#     curl \
-#     unzip \
-#     php-cli \
-#     php-mysql \
-#     php-pgsql \
-#     php-sqlite3 \
-#     php-simplexml \
-#     php-json \
-#     php-xml \
-#     php-curl \
-#     php-zip \
-#     php-bcmath \
-#     php-gd \
-#     php-intl \
-#     php-mbstring \
-#     php-soap \
-#     php-redis \
-#     php-mongodb \
-#     php-elasticsearch \
-#     php-interbase \
-#     php-oci8 \
-#     php-pdo-dblib
+RUN apk update && apk add --no-cache \
+        freetype-dev \
+        libjpeg-turbo-dev \
+        libpng-dev \
+        postgresql-dev \
+        sqlite-dev \
+        mariadb-dev \
+        oniguruma-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pdo_sqlite mysqli
 
 # Copy compiled binary from builder
 COPY --from=builder /app/auth-proxy /usr/bin/auth-proxy
